@@ -44,7 +44,7 @@ bool init(SDL_Window*& gWindow, SDL_Renderer*& gRenderer, int w, int h) {
 			else
 			{
 				//Initialize renderer color
-				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00,0x00);
 
 				//Initialize PNG loading
 				int imgFlags = IMG_INIT_PNG;
@@ -133,24 +133,36 @@ void close(SDL_Window*& gWindow, SDL_Renderer*& gRenderer) {
 	IMG_Quit();
 }
 
-bool Graphic::LTexture::loadFromRenderedText(string path, TTF_Font*& font, SDL_Color textColor,SDL_Renderer* gRenderer) {
+bool Graphic::LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor,TTF_Font* gFont, SDL_Renderer* gRenderer)
+{
+	//Get rid of preexisting texture
 	free();
-	SDL_Surface* surface = TTF_RenderText_Solid(font, path.c_str(), textColor);
-	if (surface == NULL) {
-		throw std::runtime_error("Unable to render text surface! SDL_ttf Error: " + std::string(TTF_GetError()));
+
+	//Render text surface
+	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
+	if (textSurface == NULL)
+	{
+		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
 	}
-	else {
-		mTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
+	else
+	{
+		//Create texture from surface pixels
+		mTexture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
 		if (mTexture == NULL)
 		{
-			throw std::runtime_error("Unable to create texture from rendered text! SDL Error: " + std::string(SDL_GetError()));
+			printf("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
 		}
 		else
 		{
-			w = surface->w;
-			h = surface->h;
+			//Get image dimensions
+			w = textSurface->w;
+			h = textSurface->h;
 		}
-		SDL_FreeSurface(surface);
+
+		//Get rid of old surface
+		SDL_FreeSurface(textSurface);
 	}
+
+	//Return success
 	return mTexture != NULL;
 }

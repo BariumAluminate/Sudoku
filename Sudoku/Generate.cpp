@@ -3,48 +3,80 @@
 #include <vector>
 using namespace std;
 
-void fill(vector<vector<int>>& v) {
-	vector<int> temp(9);
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
-			temp[j] = (i + j ) % 9 + 1;
+bool checkBox(int value, int x, int y, vector<vector<int>>& v) {
+	int FirstX = x - x % 3;
+	int FirstY = y - y % 3;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (v[i + FirstX][j + FirstY] == value) return false;
 		}
-		v.push_back(temp);
 	}
-	temp.clear();
+	return true;
 }
 
-void ColumnSwap(int i, int j, vector<vector<int>>& v) {
-	//swap 2 cot i va j voi nhau
-	for (int k = 0; k < 9; k++) {
-		swap(v[k][i], v[k][j]);
+bool checkRow(int value, int x, int y, vector<vector<int>>& v) {
+	for (int i = 0; i < 9; i++) {
+		if (v[i][y] == value) return false;
+	}
+	return true;
+}
+
+bool checkColumn(int value, int x, int y, vector<vector<int>>& v) {
+	for (int i = 0; i < 9; i++) {
+		if (v[x][i] == value) return false;
+	}
+	return true;
+}
+
+bool fullcheck(int value, int x, int y, vector<vector<int>>& v) {
+	return (checkBox(value, x, y, v) && checkColumn(value, x, y, v) && checkRow(value, x, y, v));
+}
+
+void fillBox(int x, int y, vector<vector<int>>& v) {
+	int value;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			do {
+				value = rand() % 9 + 1;
+			} while (fullcheck(value, i + x, j + y, v) == false);
+			v[i + x][j + y] = value;
+		}
 	}
 }
 
-void RowSwap(int i, int j, vector<vector<int>>& v) {
-	for (int k = 0; k < 9; k++) {
-		swap(v[i][k], v[j][k]);
+void fillDiagonal(vector<vector<int>>& v) {
+	for (int i = 0; i < 9; i += 3) {
+		fillBox(i, i, v);
 	}
+}
+
+bool fillRemaining(vector<vector<int>>& v, int x, int y) {
+	if (x == 9) {
+		return true;
+	}
+
+	if (y == 9) {
+		return fillRemaining(v, x + 1, 0);
+	}
+
+	if (v[x][y] != 0) {
+		return fillRemaining(v, x, y + 1);
+	}
+
+	for (int i = 0; i < 9; i++) {
+		if (fullcheck(i + 1, x, y, v)) {
+			v[x][y] = i + 1;
+			if (fillRemaining(v, x, y + 1)) {
+				return true;
+			}
+			v[x][y] = 0;
+		}
+	}
+	return false;
 }
 
 void generate(vector<vector<int>>& v) {
-	fill(v);
-	int t = 217,i,j;
-	while (t>0) {
-		i = rand() % 9;
-		j = rand() % 9;
-		if (i != j) {
-			ColumnSwap(i, j, v);
-			t--;
-		}
-	}
-	t = 217;
-	while (t > 0) {
-		i = rand() % 9;
-		j = rand() % 9;
-		if (i != j) {
-			RowSwap(i, j, v);
-			t--;
-		}
-	}
+	fillDiagonal(v);
+
+	fillRemaining(v, 0, 0);
 }
