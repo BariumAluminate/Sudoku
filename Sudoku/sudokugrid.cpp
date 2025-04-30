@@ -72,3 +72,7 @@ void rendernumber(vector <vector<cell>>& cells, int x, int y, int n, SDL_Rendere
 		}
 	}
 }
+
+void cell::free() {
+	number.free();
+}
