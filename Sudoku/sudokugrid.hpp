@@ -10,7 +10,6 @@ using namespace std;
 
 const int SCREEN_WIDTH = 1072;
 const int SCREEN_HEIGHT = 603;
-const int font_size = 30;
 
 class cell {
 private:
@@ -20,17 +19,13 @@ public:
 	cell();
 	void render(int x, int y,SDL_Renderer* gRenderer);
 	void change(bool a);
-	void loadtext(string message, SDL_Renderer* gRenderer, TTF_Font* gFont);
+	void loadtext(string message, SDL_Renderer* gRenderer);
 	void free();
 	int getWidth() const;
 	int getHeight() const;
-	void free();
+	void freespace();
 };
 
 void GridLine(int n, SDL_Renderer* gRenderer, int x, int y, int Grid_Number = 9);
 
 void rendernumber(vector <vector<cell>>& cells, int x, int y, int n, SDL_Renderer* gRenderer);
-
-bool load(TTF_Font* gFont, vector<vector<cell>>& cells, vector<vector<int>> v, SDL_Renderer* gRenderer);
-
-void RenderInControl();

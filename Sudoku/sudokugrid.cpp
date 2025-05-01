@@ -44,25 +44,10 @@ void GridLine(int n, SDL_Renderer* gRenderer, int x,int y, int GridNumber) {
 	}
 }
 
-void cell::loadtext(string message, SDL_Renderer* gRenderer,TTF_Font* gFont) {
+void cell::loadtext(string message, SDL_Renderer* gRenderer) {
 	SDL_Color textColor = { 255, 255, 255 };
+	TTF_Font* gFont = TTF_OpenFont("Arial.ttf", 30);
 	number.loadFromRenderedText(message, textColor, gFont, gRenderer);
-}
-
-bool load(TTF_Font* gFont, vector<vector<cell>>& cells, vector<vector<int>> v,SDL_Renderer* gRenderer) {
-	bool success = true;
-	gFont = TTF_OpenFont("Arial.ttf", font_size);
-	if (gFont == NULL) {
-		throw std::runtime_error("Unable to load font" + string(TTF_GetError()));
-	}
-	else {
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				cells[i][j].loadtext(to_string(v[i][j]), gRenderer, gFont);
-			}
-		}
-	}
-	return success;
 }
 
 void rendernumber(vector <vector<cell>>& cells, int x, int y, int n, SDL_Renderer* gRenderer) {
@@ -73,6 +58,6 @@ void rendernumber(vector <vector<cell>>& cells, int x, int y, int n, SDL_Rendere
 	}
 }
 
-void cell::free() {
+void cell::freespace() {
 	number.free();
 }

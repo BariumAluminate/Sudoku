@@ -142,7 +142,7 @@ bool Graphic::LTexture::loadFromRenderedText(std::string textureText, SDL_Color 
 	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
 	if (textSurface == NULL)
 	{
-		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+		throw std::runtime_error("Unable to render text surface! SDL_ttf Error:" + string(TTF_GetError()));
 	}
 	else
 	{
