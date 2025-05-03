@@ -7,7 +7,7 @@ using namespace std;
 
 bool init(SDL_Window*& gWindow, SDL_Renderer*& gRenderer, int w, int h);
 
-void close(SDL_Window*& gWindow, SDL_Renderer*& gRenderer);
+void close(SDL_Window*& gWindow, SDL_Renderer*& gRenderer, TTF_Font*& gFont);
 
 namespace Graphic {
 	class LTexture {

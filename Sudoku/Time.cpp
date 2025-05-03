@@ -8,9 +8,6 @@ Time::Time() {
 
 void Time::free() {
 	TimeInScreen.free();
-	hour = 0;
-	minute = 0;
-	second = 0;
 }
 
 string twodigits(int a) {
@@ -21,9 +18,9 @@ string twodigits(int a) {
 	return s;
 }
 
-bool Time::loadtime(SDL_Renderer* gRenderer) {
+bool Time::loadtime(SDL_Renderer* gRenderer, TTF_Font* gFont) {
+	TimeInScreen.free();
 	SDL_Color color = { 255, 255, 255 };
-	TTF_Font* gFont = TTF_OpenFont("Arial.ttf", 40);
 	string s = twodigits(hour) + ':' + twodigits(minute) + ':' + twodigits(second);
 	return TimeInScreen.loadFromRenderedText(s, color, gFont, gRenderer);
 }

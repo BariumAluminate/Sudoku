@@ -7,7 +7,7 @@ using namespace std;
 
 class Time {
 public:
-	bool loadtime(SDL_Renderer* gRenderer);
+	bool loadtime(SDL_Renderer* gRenderer, TTF_Font* gFont);
 	void render(int x, int y, SDL_Renderer* gRenderer);
 	void ResetTimer();
 	void free();

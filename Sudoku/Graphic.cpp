@@ -105,10 +105,14 @@ Graphic::LTexture::~LTexture() {
 }
 
 void Graphic::LTexture::free() {
-	mTexture = NULL;
+	if (mTexture != NULL) {
+		SDL_DestroyTexture(mTexture);
+		mTexture = NULL;
+	}
 	w = 0;
 	h = 0;
 }
+
 
 void Graphic::LTexture::render(int x, int y, SDL_Renderer*& gRenderer, SDL_Rect* Clips,double angle,SDL_Point* center, SDL_RendererFlip flip) {
 	SDL_Rect renderQuad = { x,y,w,h };
@@ -123,15 +127,24 @@ void Graphic::LTexture::SetColor(Uint8 r, Uint8 g, Uint8 b) {
 	SDL_SetTextureColorMod(mTexture, r, g, b);
 }
 
-void close(SDL_Window*& gWindow, SDL_Renderer*& gRenderer) {
-	SDL_DestroyRenderer(gRenderer);
-	SDL_DestroyWindow(gWindow);
-	gWindow = NULL;
-	gRenderer = NULL;
-	SDL_Quit();
+void close(SDL_Window*& gWindow, SDL_Renderer*& gRenderer, TTF_Font*& gFont) {
+	if (gFont != NULL) {
+		TTF_CloseFont(gFont);
+		gFont = NULL;
+	}
+	if (gRenderer != NULL) {
+		SDL_DestroyRenderer(gRenderer);
+		gRenderer = NULL;
+	}
+	if (gWindow != NULL) {
+		SDL_DestroyWindow(gWindow);
+		gWindow = NULL;
+	}
 	TTF_Quit();
 	IMG_Quit();
+	SDL_Quit();
 }
+
 
 bool Graphic::LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor,TTF_Font* gFont, SDL_Renderer* gRenderer)
 {

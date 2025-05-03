@@ -19,7 +19,7 @@ public:
 	cell();
 	void render(int x, int y,SDL_Renderer* gRenderer);
 	void change(bool a);
-	void loadtext(string message, SDL_Renderer* gRenderer);
+	void loadtext(string message, SDL_Renderer* gRenderer, TTF_Font* gFont);
 	void free();
 	int getWidth() const;
 	int getHeight() const;
@@ -28,4 +28,4 @@ public:
 
 void GridLine(int n, SDL_Renderer* gRenderer, int x, int y, int Grid_Number = 9);
 
-void rendernumber(vector <vector<cell>>& cells, int x, int y, int n, SDL_Renderer* gRenderer);
+void rendernumber(vector <vector<cell>>& cells, int x, int y, int n, SDL_Renderer* gRenderer, int Grid_number = 9);
