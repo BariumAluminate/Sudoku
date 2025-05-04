@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="Generate.hpp" />
     <ClInclude Include="Graphic.h" />
+    <ClInclude Include="Mouse.hpp" />
     <ClInclude Include="sudokugrid.hpp" />
     <ClInclude Include="Time.hpp" />
   </ItemGroup>
@@ -141,6 +142,7 @@
     <ClCompile Include="Generate.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="sudokugrid.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>

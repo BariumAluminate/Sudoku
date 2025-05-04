@@ -14,8 +14,13 @@ int main(int argc, char* args[]) {
 
 	srand(time(0));
 
-	vector<vector<int>> v(9, vector<int>(9, 0));
-	generate(v);
+	vector<vector<int>> ans(9, vector<int>(9, 0));
+	vector<vector<int>> sudoku(9, vector<int>(9));
+	
+	generate(ans);
+
+	int k = 30;
+	CreateSudoku(ans, sudoku, k);
 
 	SDL_Window* gWindow = NULL;
 	SDL_Renderer* gRenderer = NULL;
@@ -28,6 +33,20 @@ int main(int argc, char* args[]) {
 
 	Time a;
 
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			cout << ans[i][j] << " ";
+		}
+		cout << endl;
+	}
+	cout << endl;
+
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			cout << sudoku[i][j] << " ";
+		}
+		cout << endl;
+	}
 
 	if (init(gWindow,gRenderer,SCREEN_WIDTH,SCREEN_HEIGHT) == false) {
 		cout << "Could not initialized SDL" << endl;
@@ -36,7 +55,11 @@ int main(int argc, char* args[]) {
 		gFont = TTF_OpenFont("Arial.ttf", 30);
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				cells[i][j].loadtext(to_string(v[i][j]), gRenderer, gFont);
+				if (sudoku[i][j] == 0) {
+					cells[i][j].loadtext(" ", gRenderer, gFont);
+					continue;
+				}
+				cells[i][j].loadtext(to_string(sudoku[i][j]), gRenderer, gFont);
 			}
 		}
 
@@ -46,7 +69,7 @@ int main(int argc, char* args[]) {
 
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				control[j][i].loadtext(to_string(index), gRenderer, afont);
+				control[i][j].loadtext(to_string(index), gRenderer, afont);
 				index++;
 			}
 		}
@@ -75,7 +98,8 @@ int main(int argc, char* args[]) {
 			GridLine(330, gRenderer, SCREEN_WIDTH * 3 / 20, SCREEN_HEIGHT / 5, 3);
 			rendernumber(cells, SCREEN_WIDTH * 10 / 20, SCREEN_HEIGHT / 8, 495, gRenderer);
 			rendernumber(control, SCREEN_WIDTH * 3 / 20, SCREEN_HEIGHT / 5, 330, gRenderer, 3);
-
+			SDL_Rect MainGrid = { SCREEN_WIDTH * 10 / 20, SCREEN_HEIGHT / 8, 495, 495 };
+			SDL_Rect ControlGrid = { SCREEN_WIDTH * 3 / 20, SCREEN_HEIGHT / 5, 330, 330 };
 			a.render(SCREEN_WIDTH * 10 / 20, SCREEN_HEIGHT / 20, gRenderer);
 
 			SDL_RenderPresent(gRenderer);

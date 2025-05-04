@@ -80,3 +80,15 @@ void generate(vector<vector<int>>& v) {
 
 	fillRemaining(v, 0, 0);
 }
+
+void CreateSudoku(vector<vector<int>>& ans, vector<vector<int>>& sudoku, int k) {
+	sudoku = ans;
+	while (k > 0) {
+		int i = rand() % 9;
+		int j = rand() % 9;
+		if (sudoku[i][j] != 0) {
+			sudoku[i][j] = 0;
+			k--;
+		}
+	}
+}

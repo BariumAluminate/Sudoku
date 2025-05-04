@@ -17,3 +17,5 @@ void fillDiagonal(vector<vector<int>>& v);
 bool fullcheck(int value, int x, int y, vector<vector<int>>& v);
 
 bool fillRemaining(vector<vector<int>>& v, int x,int y);
+
+void CreateSudoku(vector<vector<int>>& ans, vector<vector<int>>& sudoku, int k);

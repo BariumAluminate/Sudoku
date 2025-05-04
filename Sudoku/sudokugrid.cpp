@@ -53,7 +53,7 @@ void cell::loadtext(string message, SDL_Renderer* gRenderer, TTF_Font* gFont) {
 void rendernumber(vector <vector<cell>>& cells, int x, int y, int n, SDL_Renderer* gRenderer, int Grid_number) {
 	for (int i = 0; i < Grid_number; i++) {
 		for (int j = 0; j < Grid_number; j++) {
-			cells[i][j].render(x + i * n / Grid_number + (n / Grid_number - cells[i][j].getWidth() ) / 2, y + j * n / Grid_number + (n / Grid_number - cells[i][j].getHeight() ) / 2, gRenderer);
+			cells[i][j].render(x + j * n / Grid_number + (n / Grid_number - cells[i][j].getWidth() ) / 2, y + i * n / Grid_number + (n / Grid_number - cells[i][j].getHeight() ) / 2, gRenderer);
 		}
 	}
 }
