@@ -57,7 +57,3 @@ void rendernumber(vector <vector<cell>>& cells, int x, int y, int n, SDL_Rendere
 		}
 	}
 }
-
-void cell::freespace() {
-	number.free();
-}

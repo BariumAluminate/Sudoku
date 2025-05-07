@@ -23,7 +23,6 @@ public:
 	void free();
 	int getWidth() const;
 	int getHeight() const;
-	void freespace();
 };
 
 void GridLine(int n, SDL_Renderer* gRenderer, int x, int y, int Grid_Number = 9);

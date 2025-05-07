@@ -2,17 +2,15 @@
 using namespace std;
 
 LButton::LButton() {
-	mPosition.x = 0;
-	mPosition.y = 0;
+	button = { 0, 0, 0, 0 };
 	mCurrentSprite = BUTTON_SPRITE_MOUSE_OUT;
 }
 
-void LButton::setPosition(int x, int y) {
-	mPosition.x = x;
-	mPosition.y = y;
+void LButton::setPosition(int x, int y, int w, int h) {
+	button = { x,y,w,h };
 }
 
-void LButton::handleEvent(SDL_Event* e, SDL_Rect button) {
+void LButton::handleEvent(SDL_Event* e) {
 	if (e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP) {
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -42,7 +40,19 @@ void LButton::handleEvent(SDL_Event* e, SDL_Rect button) {
 	}
 }
 
-void LButton::render(SDL_Rect button, SDL_Renderer* gRenderer) {
-	SDL_SetRenderDrawColor(gRenderer, 0xFF, 0x00, 0x00, 0xFF);
+void LButton::render(SDL_Renderer* gRenderer) {
+	Uint8 r, g, b, a;
+	r = buttoncolor[mCurrentSprite].r;
+	g = buttoncolor[mCurrentSprite].g;
+	b = buttoncolor[mCurrentSprite].b;
+	a = buttoncolor[mCurrentSprite].a;
+	SDL_SetRenderDrawColor(gRenderer, r, g, b, a);
 	SDL_RenderFillRect(gRenderer, &button);
+}
+
+bool insideRect(SDL_Rect a, int x, int y) {
+		if (x - a.x >= 0 && y - a.y >= 0 && x - a.x <= a.w && y - a.y <= a.h) {
+			return true;
+		}
+		return false;
 }

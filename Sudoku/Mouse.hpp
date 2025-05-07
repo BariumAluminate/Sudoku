@@ -6,6 +6,13 @@
 #include <SDL_ttf.h>
 using namespace std;
 
+const SDL_Color buttoncolor[4] = {
+    {0,0,0,0},
+    {0,0,64,0},
+    {0,64,0,0},
+    {0,64,0,0},
+};
+
 enum LButtonSprite
 {
     BUTTON_SPRITE_MOUSE_OUT = 0,
@@ -22,18 +29,18 @@ public:
     LButton();
 
     //Sets top left position
-    void setPosition(int x, int y);
+    void setPosition(int x, int y, int w, int h);
 
     //Handles mouse event
-    void handleEvent(SDL_Event* e, SDL_Rect button);
+    void handleEvent(SDL_Event* e);
 
     //Shows button sprite
-    void render(SDL_Rect button, SDL_Renderer* gRenderer);
+    void render( SDL_Renderer* gRenderer);
 
 private:
-    //Top left position
-    SDL_Point mPosition;
-
-    //Currently used global sprite
+    SDL_Rect button;
+    
     LButtonSprite mCurrentSprite;
 };
+
+bool insideRect(SDL_Rect a, int x, int y);
