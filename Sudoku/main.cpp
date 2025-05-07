@@ -4,8 +4,6 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <sstream>
-#include <chrono>
-#include <thread>
 #include "Generate.hpp"
 #include "Graphic.h"
 #include "sudokugrid.hpp"
@@ -90,6 +88,7 @@ int main(int argc, char* args[]) {
 		SDL_Rect ControlGrid = { SCREEN_WIDTH * 3 / 20, SCREEN_HEIGHT / 5, 330, 330 };
 		int x = 0, y = 0;
 		int temp = 0;
+		int attemp = 3;
 		Graphic::LTexture chosen;
 		chosen.loadFromRenderedText("You have not choose any number", { 255,255,255,255 }, gFont, gRenderer);
 		string current;
@@ -128,6 +127,11 @@ int main(int argc, char* args[]) {
 						chosen.loadFromRenderedText("Correct", { 255,255,255,255 }, gFont, gRenderer);
 						current = "Correct";
 					}
+					else {
+						attemp--;
+						chosen.loadFromRenderedText("Wrong answer", { 255,255,255,255 }, gFont, gRenderer);
+						current = "Wrong answer";
+					}
 					cout << sudoku[y1][x1] << endl;
 					temp = 0;
 				}
@@ -144,15 +148,25 @@ int main(int argc, char* args[]) {
 					controlbutton[i][j].render(gRenderer);
 				}
 			}
+
 			GridLine(495, gRenderer, SCREEN_WIDTH*10/20, SCREEN_HEIGHT/8);
 			GridLine(330, gRenderer, SCREEN_WIDTH * 3 / 20, SCREEN_HEIGHT / 5, 3);
+
 			rendernumber(cells, SCREEN_WIDTH * 10 / 20, SCREEN_HEIGHT / 8, 495, gRenderer);
 			rendernumber(control, SCREEN_WIDTH * 3 / 20, SCREEN_HEIGHT / 5, 330, gRenderer, 3);
+
 			chosen.render(0, SCREEN_HEIGHT * 2 / 20, gRenderer);
+
 			a.render(SCREEN_WIDTH * 10 / 20, SCREEN_HEIGHT / 20, gRenderer);
+
 			SDL_RenderPresent(gRenderer);
+
 			if (current == "Correct") {
-				this_thread::sleep_for(chrono::seconds(1));
+				SDL_Delay(500);
+			}
+
+			if (current == "Wrong answer") {
+				SDL_Delay(500);
 			}
 		}
 	}
