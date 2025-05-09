@@ -74,6 +74,7 @@ int Graphic::LTexture::getWidth() const {
 }
 
 bool Graphic::LTexture::LoadFromFile(string path,SDL_Renderer*& gRenderer) {
+	free();
 	SDL_Texture* newTexture = NULL;
 	SDL_Surface* surface = IMG_Load(path.c_str());
 	if (surface == NULL) {
