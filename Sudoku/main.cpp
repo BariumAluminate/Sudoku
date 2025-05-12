@@ -21,7 +21,7 @@ int main(int argc, char* args[]) {
 	
 	generate(ans);
 
-	int k = 30;
+	int k = 1;
 	CreateSudoku(ans, sudoku, k);
 
 	SDL_Window* gWindow = NULL;
@@ -206,7 +206,7 @@ int main(int argc, char* args[]) {
 					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 					SDL_RenderDrawRect(gRenderer, &ContinueButton);
 					
-					frame.render(SCREEN_WIDTH / 2 - frame.getWidth() / 2, SCREEN_HEIGHT / 2 - frame.getHeight() / 2, gRenderer);
+					//frame.render(SCREEN_WIDTH / 2 - frame.getWidth() / 2, SCREEN_HEIGHT / 2 - frame.getHeight() / 2, gRenderer);
 					victoryScreen.render(SCREEN_WIDTH / 2 - victoryScreen.getWidth() / 2, SCREEN_HEIGHT / 2 - victoryScreen.getHeight() / 2, gRenderer);
 					
 					a.render(SCREEN_WIDTH / 2 + frame.getWidth() / 2 + 32, SCREEN_HEIGHT / 2 + frame.getHeight() / 2 + 32, gRenderer);
