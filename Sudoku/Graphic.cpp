@@ -7,11 +7,13 @@
 #include <stdexcept>
 using namespace std;
 
+//LazyFoo Tutorial
+
 bool init(SDL_Window*& gWindow, SDL_Renderer*& gRenderer, int w, int h) {
-	//Initialization flag
+	
 	bool success = true;
 
-	//Initialize SDL
+	
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		throw std::runtime_error("Fail to initialized SDL! SDL Error: " + std::string(SDL_GetError()));
@@ -144,7 +146,7 @@ void close(SDL_Window*& gWindow, SDL_Renderer*& gRenderer, TTF_Font*& gFont) {
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
-}
+}/*AI*/
 
 
 bool Graphic::LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor,TTF_Font* gFont, SDL_Renderer* gRenderer)

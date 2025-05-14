@@ -108,11 +108,11 @@ int main(int argc, char* args[]) {
 			if (attemp == 0) {
 				SDL_Rect ContinueButton = { SCREEN_WIDTH / 2 - gameover.getWidth() / 2 + 142,269,128,16 };
 				SDL_Rect QuitButton = { SCREEN_WIDTH / 2 - gameover.getWidth() / 2 + 401,269,81,18 };
-				while (attemp == 0 && !quit) {
+				while (attemp == 0 && !quit /*AI*/) {
 					while (SDL_PollEvent(&e) != 0) {
 						int x, y;
 						SDL_GetMouseState(&x, &y);
-						if (e.type == SDL_QUIT || (e.type == SDL_MOUSEBUTTONDOWN && insideRect(QuitButton, x, y) == true)) {
+						if (e.type == SDL_QUIT/*AI*/ || (e.type == SDL_MOUSEBUTTONDOWN && insideRect(QuitButton, x, y) == true)) {
 							quit = true;
 							break;
 						}
@@ -141,8 +141,8 @@ int main(int argc, char* args[]) {
 							break;
 						}
 					}
-					if (quit) break;
-
+					if (quit) break;/*AI*/
+					/*AI*/
 					SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0x00);
 					SDL_RenderClear(gRenderer);
 
@@ -161,12 +161,12 @@ int main(int argc, char* args[]) {
 				Graphic::LTexture qui;
 				conti.loadFromRenderedText("CONTINUE", { 255,255,255 }, gFont, gRenderer);
 				qui.loadFromRenderedText("QUIT", { 255,255,255 }, gFont, gRenderer);
-				while (victory && !quit) {
+				while (victory && !quit) {//AI
 					while (SDL_PollEvent(&e) != 0) {
 						int x, y;
 						SDL_GetMouseState(&x, &y);
-						if (e.type == SDL_QUIT || (e.type == SDL_MOUSEBUTTONDOWN && insideRect(QuitButton, x, y) == true)) {
-							quit = true;
+						if (e.type == SDL_QUIT/*AI*/ || (e.type == SDL_MOUSEBUTTONDOWN && insideRect(QuitButton, x, y) == true)) {
+							quit = true;/*AI*/
 							break;
 						}
 
@@ -197,8 +197,8 @@ int main(int argc, char* args[]) {
 							break;
 						}
 					}
-					if (quit) break;
-
+					if (quit) break;/*AI*/
+					
 					SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0x00);
 					SDL_RenderClear(gRenderer);
 					SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -208,11 +208,12 @@ int main(int argc, char* args[]) {
 					
 					//frame.render(SCREEN_WIDTH / 2 - frame.getWidth() / 2, SCREEN_HEIGHT / 2 - frame.getHeight() / 2, gRenderer);
 					victoryScreen.render(SCREEN_WIDTH / 2 - victoryScreen.getWidth() / 2, SCREEN_HEIGHT / 2 - victoryScreen.getHeight() / 2, gRenderer);
+
 					
-					a.render(SCREEN_WIDTH / 2 + frame.getWidth() / 2 + 32, SCREEN_HEIGHT / 2 + frame.getHeight() / 2 + 32, gRenderer);
 					
 					conti.render(110 - conti.getWidth() / 2 + 348 / 2, 460 - conti.getHeight() / 2 + 79 / 2, gRenderer);
 					qui.render(680 - qui.getWidth() / 2 + 348 / 2, 460 - qui.getHeight() / 2 + 79 / 2, gRenderer);
+					a.render(SCREEN_WIDTH * 10 / 20, SCREEN_HEIGHT / 20, gRenderer);
 
 					SDL_RenderPresent(gRenderer);
 
